@@ -1,0 +1,3 @@
+Hello world!
+
+This is just to test how committing / pushing works with the local git repo.
