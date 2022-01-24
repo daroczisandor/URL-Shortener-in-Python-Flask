@@ -1,5 +1,6 @@
 import string, random
 
+# An URL Shortener class used to encode and decode url's.
 class UrlShortener:
     def __init__(self, num_chars=5):
         """
@@ -14,7 +15,7 @@ class UrlShortener:
     def encode(self, long_url):
         """
 
-        :param string long_url: the url to be shortened
+        :param string long_url: the url to be encoded
         :return: string short_url: the shortened url
         """
         chars = string.ascii_letters + string.digits
@@ -23,9 +24,14 @@ class UrlShortener:
         return short
 
 
-    def decode(self):
+    def decode(self, short_url):
+        """
+
+        :param string short_url: the URL to be decoded
+        :return: string long_url: the decoded URL
+        """
         pass
 
-if __name__ == "__main__":
-    Encoder = Encoder()
-    Encoder.encode("322352")
+# if __name__ == "__main__":
+#     Encoder = Encoder()
+#     Encoder.encode("322352")
