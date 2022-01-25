@@ -20,7 +20,7 @@ def is_url(url_string):
 
 
 
-def error_to_json(error_message, return_json=True):
+def error_to_json(error_message):
     """
     A helper function to convert an error message to a JSON dict
 
@@ -28,18 +28,16 @@ def error_to_json(error_message, return_json=True):
     :param bool return_json: whether the output should be json dict, or a python dict
     :return: the message converted to json
     """
+
     message = {
         'message': error_message
     }
-
-    if (return_json):
-        return json.loads(json.dumps(message))
-    return message
+    return json.loads(json.dumps(message))
 
 
 
 
-def url_to_json(message, return_json=True):
+def url_to_json(message):
     """
     A helper function to convert a message and a URL to JSON
 
@@ -49,9 +47,8 @@ def url_to_json(message, return_json=True):
     :param return_json: whether the output should be json dict, or a python dict
     :return: the message converted to json
     """
-    if (return_json):
-        return json.loads(json.dumps(message))
-    return message
+
+    return json.loads(json.dumps(message))
 
 
 # if __name__ == "__main__":
