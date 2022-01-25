@@ -6,7 +6,7 @@
 
 from flask import Flask, request
 from url_shortener import UrlShortener
-from utils import is_url
+from utils import is_url, error_to_json
 
 import json
 
@@ -31,18 +31,13 @@ def home():
 @app.route('/encode', methods=['GET'])
 def api_encode():
     if 'url' not in request.args:
-        return "Error. No URL argument found."
+        return error_to_json("Error. No URL argument found.")
     long_url = request.args['url']
     if not is_url(long_url):
-        return "Error. The given string is not a valid URL."
+        return error_to_json("Error. The given string is not a valid URL.")
 
-    encoded_url = urlShortener.encode(long_url)
-    message = {
-        'message': 'URL successfully encoded!',
-        'encoded_url': encoded_url
-    }
-    message_json = json.loads(json.dumps(message))
-    return message_json
+    encoder_response = urlShortener.encode(long_url)
+    return encoder_response
 
 
 
@@ -50,18 +45,13 @@ def api_encode():
 @app.route('/decode', methods=['GET'])
 def api_decode():
     if 'url' not in request.args:
-        return "Error. No URL argument found."
+        return error_to_json("Error. No URL argument found.")
     short_url = request.args['url']
     if not short_url.startswith(base_url):
-        return f"Error. The URL must start with {base_url}"
+        return error_to_json(f"Error. The URL must start with {base_url}")
 
-    decoded_url = urlShortener.decode(short_url)
-    message = {
-        'message': 'URL successfully decoded!',
-        'decoded_url': decoded_url
-    }
-    message_json = json.loads(json.dumps(message))
-    return message_json
+    decoder_response = urlShortener.decode(short_url)
+    return decoder_response
 
 
 

@@ -1,4 +1,5 @@
 import string, random
+from utils import error_to_json, url_to_json
 
 # An URL Shortener class used to encode and decode url's.
 class UrlShortener:
@@ -28,7 +29,8 @@ class UrlShortener:
 
         # if the long_url has already been encoded, return the shortened URL
         if long_url in self.long_to_short:
-            return self.long_to_short[long_url]
+            return url_to_json({"message": "URL already encoded.",
+                                "encoded_url": self.long_to_short[long_url]})
 
         # generate encoding by grouping together num_chars many random characters
         chars = string.ascii_letters + string.digits
@@ -42,10 +44,11 @@ class UrlShortener:
                 print("Long to short dict: ", self.long_to_short)
                 print("Short to long dict: ", self.short_to_long)
 
-                return short_url
+                return url_to_json({"message": "Success! The input URL has been encoded.",
+                                    "encoded_url": short_url})
             it += 1
 
-        return "Error, couldn't encode the URL. Try again."
+        return error_to_json("Error. Couldn't encode the URL due to runtime issues. Try again later.")
 
 
 
@@ -59,10 +62,11 @@ class UrlShortener:
 
         # if the short_url has already been used to encode an URL, return the corresponding long URL
         if short_url in self.short_to_long:
-            return self.short_to_long[short_url]
+            return url_to_json({"message": "Success! The input URL has been decoded.",
+                                "decoded_url": self.short_to_long[short_url]})
 
         # else return an error message
-        return "Error, no URL corresponds to the given short URL."
+        return error_to_json("Error. No long URL corresponds to the provided short URL.")
 
 
 

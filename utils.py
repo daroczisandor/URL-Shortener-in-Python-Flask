@@ -1,6 +1,8 @@
 import validators
 from validators import ValidationFailure
 
+import json
+
 # checks if a given string is a valid URL
 def is_url(url_string):
     """
@@ -15,6 +17,23 @@ def is_url(url_string):
 
     return True
 
+
+
+def error_to_json(error_message, return_json=True):
+    message = {
+        'message': error_message
+    }
+
+    if (return_json):
+        return json.loads(json.dumps(message))
+    return message
+
+
+
+def url_to_json(message, return_json=True):
+    if (return_json):
+        return json.loads(json.dumps(message))
+    return message
 
 
 # if __name__ == "__main__":
