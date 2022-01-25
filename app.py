@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 # creating UrlShortener instance
 urlShortener = UrlShortener()
-
+base_url = urlShortener.base_url
 
 
 # Defining what will happen on the main route
@@ -31,7 +31,7 @@ def home():
 @app.route('/encode', methods=['GET'])
 def api_encode():
     if 'url' not in request.args:
-        return "Error. No URL found."
+        return "Error. No URL argument found."
     long_url = request.args['url']
     if not is_url(long_url):
         return "Error. The given string is not a valid URL."
@@ -42,8 +42,25 @@ def api_encode():
         'encoded_url': encoded_url
     }
     message_json = json.loads(json.dumps(message))
-    print("Jsonified message type: ", type(message_json))
-    print("Jsonified message type: ", type(message_json))
+    return message_json
+
+
+
+# Defining the decode endpoint
+@app.route('/decode', methods=['GET'])
+def api_decode():
+    if 'url' not in request.args:
+        return "Error. No URL argument found."
+    short_url = request.args['url']
+    if not short_url.startswith(base_url):
+        return f"Error. The URL must start with {base_url}"
+
+    decoded_url = urlShortener.decode(short_url)
+    message = {
+        'message': 'URL successfully decoded!',
+        'decoded_url': decoded_url
+    }
+    message_json = json.loads(json.dumps(message))
     return message_json
 
 

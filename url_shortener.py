@@ -56,7 +56,13 @@ class UrlShortener:
         :param string short_url: the URL to be decoded
         :return: string long_url: the decoded URL
         """
-        pass
+
+        # if the short_url has already been used to encode an URL, return the corresponding long URL
+        if short_url in self.short_to_long:
+            return self.short_to_long[short_url]
+
+        # else return an error message
+        return "Error, no URL corresponds to the given short URL."
 
 
 

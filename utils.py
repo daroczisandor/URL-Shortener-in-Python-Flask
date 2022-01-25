@@ -15,6 +15,8 @@ def is_url(url_string):
 
     return True
 
+
+
 # if __name__ == "__main__":
 #     url = "https://wikipedia.org"
 #     print(is_url(url))
