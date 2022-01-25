@@ -1,5 +1,4 @@
 import string, random
-from flask import jsonify
 
 # An URL Shortener class used to encode and decode url's.
 class UrlShortener:
@@ -40,8 +39,9 @@ class UrlShortener:
             short_url = self.base_url + short_code                                         # append generated encoding to the base URL
             if short_url not in self.short_to_long:
                 self.insert_encoding(short_url, long_url)
-                print(self.long_to_short)
-                print(self.short_to_long)
+                print("Long to short dict: ", self.long_to_short)
+                print("Short to long dict: ", self.short_to_long)
+
                 return short_url
             it += 1
 
