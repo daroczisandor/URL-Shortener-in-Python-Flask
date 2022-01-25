@@ -44,7 +44,7 @@ class UrlShortener:
             short_code = ''.join(random.choice(chars) for i in range(self.num_chars))     # generate encoding
             short_url = self.base_url + short_code                                        # append generated encoding to the base URL
             if short_url not in self.short_to_long:                                       # return the encoding if it has not already been used
-                self.insert_encoding(short_url, long_url)                                 # insert the short-long URL pair into the dictionaries
+                self.store_encoding(short_url, long_url)                                  # store the short-long URL pair
                 print("Long to short dict: ", self.long_to_short)
                 print("Short to long dict: ", self.short_to_long)
 
@@ -76,7 +76,7 @@ class UrlShortener:
 
 
 
-    def insert_encoding(self, short_url, long_url):
+    def store_encoding(self, short_url, long_url):
         """
         Inserting a short_url - long_url pair into both dictionaries
 

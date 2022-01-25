@@ -4,7 +4,7 @@
 # (C) 2022 Sándor Daróczi, Munich, Germany
 # -----------------------------------------------------------
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 from url_shortener import UrlShortener
 from utils import is_url, error_to_json
 
@@ -21,9 +21,7 @@ base_url = urlShortener.base_url
 # Defining what will happen on the home page
 @app.route('/')
 def home():
-    return "Hey! This is an URL shortener service. " \
-           "To shorten an URL given by the string url_string, go to ./encode?url=url_string. Example: " \
-           "http://127.0.0.1:7777/encode?url=https://wikipedia.org."
+    return render_template('home.html')
 
 
 
