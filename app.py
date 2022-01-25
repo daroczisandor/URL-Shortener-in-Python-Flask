@@ -18,11 +18,11 @@ urlShortener = UrlShortener()
 base_url = urlShortener.base_url
 
 
-# Defining what will happen on the main route
+# Defining what will happen on the home page
 @app.route('/')
 def home():
-    return "Hey! This is an URL shortener service." \
-           "To shorten an URL given by the string url_string, go to ./encode?url=url_string. Example:" \
+    return "Hey! This is an URL shortener service. " \
+           "To shorten an URL given by the string url_string, go to ./encode?url=url_string. Example: " \
            "http://127.0.0.1:7777/encode?url=https://wikipedia.org."
 
 

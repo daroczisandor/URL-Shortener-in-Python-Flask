@@ -19,7 +19,15 @@ def is_url(url_string):
 
 
 
+
 def error_to_json(error_message, return_json=True):
+    """
+    A helper function to convert an error message to a JSON dict
+
+    :param string error_message: the error message to be converted
+    :param bool return_json: whether the output should be json dict, or a python dict
+    :return: the message converted to json
+    """
     message = {
         'message': error_message
     }
@@ -30,7 +38,17 @@ def error_to_json(error_message, return_json=True):
 
 
 
+
 def url_to_json(message, return_json=True):
+    """
+    A helper function to convert a message and a URL to JSON
+
+    :param dict message: a dictionary of the form
+                         {'message': input_message,
+                          'url': input_url}
+    :param return_json: whether the output should be json dict, or a python dict
+    :return: the message converted to json
+    """
     if (return_json):
         return json.loads(json.dumps(message))
     return message
