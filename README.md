@@ -7,9 +7,12 @@ This is an URL shortener service written using Flask / Python.
 - Language: Python
 - Framework: Flask
 - IDE: PyCharm
+- Created on Windows
 
 
 ### Setup
+
+The setup instructions are for Windows OS.
 
 1. Navigate to the directory of the downloaded project
 2. Make sure Python is installed (version >= 3.7.4)
@@ -58,6 +61,14 @@ III. /redirect/
 ### Algorithm for generating the short_url's
 
 The generator algorithms simply generates a sequence of random characters (lowercase letters + uppercase letters + numbers) with length specified by the num_chars variable, and then creates a string via concatenating the base_url with the encoding. This string will be stored as the encoded URL in two dictionaries (to ensure an average lookup time of O(1))
+
+
+
+### Testing
+
+
+
+
 
 #### Notes:
 

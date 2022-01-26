@@ -32,6 +32,7 @@ class UrlShortener:
         :return: the encoded URL as of the format {"message": message,
                                                    "status": status,
                                                    "encoded_url": encoded_url}
+                                encoded_url example: "http://127.0.0.1:7777/6M0qc"
         """
 
         # if the long_url has already been encoded, return the shortened URL
@@ -40,16 +41,9 @@ class UrlShortener:
                                 "status": "success",
                                 "encoded_url": self.long_to_short[long_url]})
 
-        # setting up a list of all lowercase and uppercase letters, as well as digits
-        chars = string.ascii_letters + string.digits
-
         it = 0
         while(it < self.max_it):
-            # generate encoding
-            short_code = ''.join(random.choice(chars) for i in range(self.num_chars))
-
-            # append generated encoding to the base URL
-            short_url = self.base_url + short_code
+            short_url = self.generate_encoding()
 
             # store and return the encoding if it has not been used already
             if short_url not in self.short_to_long:
@@ -74,6 +68,7 @@ class UrlShortener:
         :return: the decoded URL as of the format {"message": message,
                                                    "status": status,
                                                    "decoded_url": decoded_url}
+                                 decoded_url example: "https://wikipedia.org"
         """
 
         # if the short_url has already been used to encode an URL, return the corresponding long URL
@@ -85,6 +80,28 @@ class UrlShortener:
 
         # else return an error message
         return error_to_json("Error. No long URL corresponds to the provided short URL.")
+
+
+
+    def generate_encoding(self):
+        """
+        Generates a sequence of random characters of length self.num_chars,
+        and appends them to the base_url to generate a short_url.
+        The allowed characters are the lowercase and uppercase letters of
+        the English alphabet, as well as the digits.
+
+        :return: string short_url: the created short_url
+        """
+
+        # setting up a list of all lowercase and uppercase letters, and digits
+        chars = string.ascii_letters + string.digits
+
+        # generate encoding
+        short_code = ''.join(random.choice(chars) for i in range(self.num_chars))
+
+        # append generated encoding to the base URL and return it
+        short_url = self.base_url + short_code
+        return short_url
 
 
 
