@@ -18,3 +18,8 @@ However, the drawback is that the memory usage doubles compared to
 using a single dict.
 But nevertheless, we will implement this idea.
 
+### Tasks remaining
+- Provide tests
+- Integrate Docker
+- Add functionality: redirect links
+
