@@ -8,9 +8,10 @@ This is an URL shortener service written using Flask / Python.
 - Framework: Flask
 - IDE: PyCharm
 
+
 ### Setup
 
-1. Navigate to the directory of the project
+1. Navigate to the directory of the downloaded project
 2. Make sure Python is installed (version >= 3.7.4)
 3. Open command line from the directory, and run the following commands:
 - pip install virtualenv
@@ -20,7 +21,21 @@ This is an URL shortener service written using Flask / Python.
 
 Then, open a browser of your choice and go to http://127.0.0.1:7777/.
 
-There you will see further instructions.
+
+
+### File structure
+
+- templates
+	- home.html
+- app.py
+- IDEAS.md
+- README.md
+- requirements.txt
+- TASK_OBJECTIVES.md
+- url_shortener.py
+- utils.py
+
+
 
 ### Endpoints:
 
@@ -34,6 +49,16 @@ II. /decode/
 - Given a short URL argument as e.g. "http://127.0.0.1:7777/decode?url=http://127.0.0.1:7777/6M0qc", it returns a JSON containing the corresponding decoded long URL, if it exists, or an error message otherwise.
 
 
+III. /redirect/
+
+- As a plus, I also integrated a redirect endpoint into the service. This reads in a short_url as e.g. "http://127.0.0.1:7777/redirect?url=http://127.0.0.1:7777/6M0qc", then, similarly to the decode endpoint, it finds the corresponding long_url if has already been encoded. Then instead of just returning it, the endpoint will redirect the page to the given long_url.
+
+
+
+### Algorithm for generating the short_url's
+
+The generator algorithms simply generates a sequence of random characters (lowercase letters + uppercase letters + numbers) with length specified by the num_chars variable, and then creates a string via concatenating the base_url with the encoding. This string will be stored as the encoded URL in two dictionaries (to ensure an average lookup time of O(1))
+
 #### Notes:
 
-- Using port 7777 instead of the default 5000.
+- Keep in mind that the Flask app is using port 7777 instead of the default 5000

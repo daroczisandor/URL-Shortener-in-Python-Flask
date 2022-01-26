@@ -29,8 +29,9 @@ class UrlShortener:
 
         :param string long_url: the url to be encoded
                                 example: "https://wikipedia.org"
-        :return: string short_url: the shortened url consisting of the base URL + self.num_chars random characters
-                                   example: "http://127.0.0.1:7777/Ch5kf"
+        :return: the encoded URL as of the format {"message": message,
+                                                   "status": status,
+                                                   "encoded_url": encoded_url}
         """
 
         # if the long_url has already been encoded, return the shortened URL
@@ -53,9 +54,11 @@ class UrlShortener:
             # store and return the encoding if it has not been used already
             if short_url not in self.short_to_long:
                 self.store_encoding(short_url, long_url)
-                return url_to_json({"message": "Success! The input URL has been encoded.",
-                                    "status": "success",
-                                    "encoded_url": short_url})
+
+                response = {"message": "Success! The input URL has been encoded.",
+                            "status": "success",
+                            "encoded_url": short_url}
+                return url_to_json(response)
             it += 1
 
         return error_to_json("Error. Couldn't encode the URL due to runtime issues. Try again later.")
@@ -68,15 +71,17 @@ class UrlShortener:
 
         :param string short_url: the URL to be decoded
                                  example: "http://127.0.0.1:7777/Ch5kf"
-        :return: string long_url: the decoded URL
-                                  example: "https://wikipedia.org"
+        :return: the decoded URL as of the format {"message": message,
+                                                   "status": status,
+                                                   "decoded_url": decoded_url}
         """
 
         # if the short_url has already been used to encode an URL, return the corresponding long URL
         if short_url in self.short_to_long:
-            return url_to_json({"message": "Success! The input URL has been decoded.",
-                                "status": "success",
-                                "decoded_url": self.short_to_long[short_url]})
+            response = {"message": "Success! The input URL has been decoded.",
+                        "status": "success",
+                        "decoded_url": self.short_to_long[short_url]}
+            return url_to_json(response)
 
         # else return an error message
         return error_to_json("Error. No long URL corresponds to the provided short URL.")

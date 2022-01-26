@@ -7,6 +7,7 @@
 from flask import Flask, request, render_template, redirect
 from url_shortener import UrlShortener
 from utils import is_url, error_to_json
+import json
 
 
 
@@ -83,26 +84,36 @@ def api_decode():
 
 
 
-# @app.route('/redirect/<short_url>', methods=['GET'])
-# def redirect(short_url):
-#     """
-#     Decode endpoint that gets a short_url provided as an 'url' argument,
-#     looks up the long_url that has been encoded to get the short_url, and
-#     then return the long_url as a JSON.
-#     If no corresponding long_url exists, it returns an error message.
-#
-#     :return: the encoded link as a JSON of the form {'message': message,
-#                                                      'decoded_url': decoded_url},
-#              or an error message of the form {'message': error_message}
-#     """
-#
-#     # if the short URL does not start with "http://127.0.0.1:7777/", return error
-#     if not short_url.startswith(base_url):
-#         return error_to_json(f"Error. The URL must start with {base_url}")
-#
-#     # get decoded URL as JSON
-#     decoder_response = urlShortener.decode(short_url)
-#     if decoder_response['message'].startswith("Error"):
+@app.route('/redirect', methods=['GET'])
+def api_redirect():
+    """
+    Redirect endpoint that reads a short_url and redirects the webpage to its
+    corresponding long_url, if it exists.
+    If no corresponding long_url exists, it returns an error message.
+
+    :return: Flask.redirect() instance, redirecting to long_url
+    """
+
+    # if no url argument was given, return error
+    if 'url' not in request.args:
+        return error_to_json("Error. No URL argument found.")
+    short_url = request.args['url']
+
+    # if the short URL does not start with "http://127.0.0.1:7777/", return error
+    if not short_url.startswith(base_url):
+        return error_to_json(f"Error. The URL must start with {base_url}")
+
+    # get decoded URL as JSON
+    decoder_response = urlShortener.decode(short_url)
+    status = decoder_response['status']
+    decoded_url = decoder_response['decoded_url']
+
+    # if the decoder returned an error message, print it
+    if status == 'error':
+        return decoder_response
+
+    return redirect(decoded_url, code=302)
+
 
 
 if __name__ == "__main__":
