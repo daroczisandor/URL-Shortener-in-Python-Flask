@@ -1,7 +1,7 @@
-import validators
+import validators, json
 from validators import ValidationFailure
 
-import json
+
 
 # checks if a given string is a valid URL
 def is_url(url_string):
@@ -11,6 +11,8 @@ def is_url(url_string):
     :return: bool valid: True if url_string is a valid URL
                          False if url_string is not a valid URL
     """
+
+    # Create validators in
     valid = validators.url(url_string)
     if isinstance(valid, ValidationFailure):
         return False

@@ -8,7 +8,7 @@ from flask import Flask, request, render_template
 from url_shortener import UrlShortener
 from utils import is_url, error_to_json
 
-import json
+
 
 # creating Flask app
 app = Flask(__name__)

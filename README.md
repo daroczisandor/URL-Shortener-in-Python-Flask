@@ -8,6 +8,20 @@ This is an URL shortener service written using Flask / Python.
 - Framework: Flask
 - IDE: PyCharm
 
+### Setup
+
+1. Navigate to the directory of the project
+2. Make sure Python is installed (version >= 3.7.4)
+3. Open command line from the directory, and run the following commands:
+- pip install virtualenv
+- python -m virtualenv ./
+- pip install -r requirements.txt
+- python app.py
+
+Then, open a browser of your choice and go to http://127.0.0.1:7777/.
+
+There you will see further instructions.
+
 ### Endpoints:
 
 I. /encode/
@@ -21,4 +35,5 @@ II. /decode/
 
 
 #### Notes:
-Using port 7777 instead of the default 5000.
+
+- Using port 7777 instead of the default 5000.
