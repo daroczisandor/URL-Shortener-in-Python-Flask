@@ -35,6 +35,7 @@ Then, open a browser of your choice and go to http://127.0.0.1:7777/.
 - README.md
 - requirements.txt
 - TASK_OBJECTIVES.md
+- test.py
 - url_shortener.py
 - utils.py
 
@@ -45,6 +46,11 @@ Then, open a browser of your choice and go to http://127.0.0.1:7777/.
 I. /encode/
 
 - Given a long URL argument as e.g. "http://127.0.0.1:7777/encode?url=https://wikipedia.org", it returns a JSON containing a short URL of the form "http://127.0.0.1:7777/6M0qc" corresponding to the long link provided, or an error message if the conversion could not be performed.
+
+- Error message if no 'url' argument was given: "Error. No URL argument found."
+- Error message if the given string is not a valid URL: "Error. The given string is not a valid URL."
+- Error message if the program performed too much unsuccessful tries to encode an URL: "Error. Couldn't encode the URL due to runtime issues. Try again later." 
+(practically never happens, since the number of possible encodings is 62^5 which is approximately 10^9.
 
 
 II. /decode/
@@ -64,9 +70,13 @@ The generator algorithms simply generates a sequence of random characters (lower
 
 
 
+### Checking the validity of URL's
+
+The program checks the validity of URL's via a Python package named [validators](https://validators.readthedocs.io/en/latest/).
+
+
+
 ### Testing
-
-
 
 
 
