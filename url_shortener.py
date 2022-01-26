@@ -4,10 +4,12 @@ from utils import error_to_json, url_to_json
 
 
 class UrlShortener:
+    """
+    A UrlShortener class for generating an encoding for long URLs, and decoding short URLs.
+    """
+
     def __init__(self, num_chars=5, base_url="http://127.0.0.1:7777/", max_it=1e5):
         """
-        A UrlShortener class for generating an encoding for long URLs, and decoding short URLs.
-
         :param int num_chars: number of random characters used for encoding, default: 5
         :param string base_url: the URL of the homepage, default: "http://127.0.0.1:7777/"
         :param int max_it: maximum number of random tries to generate encoding, default: 100.000
@@ -34,6 +36,7 @@ class UrlShortener:
         # if the long_url has already been encoded, return the shortened URL
         if long_url in self.long_to_short:
             return url_to_json({"message": "URL already encoded.",
+                                "status": "success",
                                 "encoded_url": self.long_to_short[long_url]})
 
         # setting up a list of all lowercase and uppercase letters, as well as digits
@@ -41,14 +44,17 @@ class UrlShortener:
 
         it = 0
         while(it < self.max_it):
-            short_code = ''.join(random.choice(chars) for i in range(self.num_chars))     # generate encoding
-            short_url = self.base_url + short_code                                        # append generated encoding to the base URL
-            if short_url not in self.short_to_long:                                       # return the encoding if it has not already been used
-                self.store_encoding(short_url, long_url)                                  # store the short-long URL pair
-                print("Long to short dict: ", self.long_to_short)
-                print("Short to long dict: ", self.short_to_long)
+            # generate encoding
+            short_code = ''.join(random.choice(chars) for i in range(self.num_chars))
 
+            # append generated encoding to the base URL
+            short_url = self.base_url + short_code
+
+            # store and return the encoding if it has not been used already
+            if short_url not in self.short_to_long:
+                self.store_encoding(short_url, long_url)
                 return url_to_json({"message": "Success! The input URL has been encoded.",
+                                    "status": "success",
                                     "encoded_url": short_url})
             it += 1
 
@@ -69,6 +75,7 @@ class UrlShortener:
         # if the short_url has already been used to encode an URL, return the corresponding long URL
         if short_url in self.short_to_long:
             return url_to_json({"message": "Success! The input URL has been decoded.",
+                                "status": "success",
                                 "decoded_url": self.short_to_long[short_url]})
 
         # else return an error message
@@ -87,6 +94,11 @@ class UrlShortener:
         self.short_to_long[short_url] = long_url
 
 
-# if __name__ == "__main__":
-#     Encoder = Encoder()
-#     Encoder.encode("322352")
+
+    def reset_dicts(self):
+        """
+        A function which clears the dictionaries containing the encodings.
+
+        """
+        self.long_to_short.clear()
+        self.short_to_long.clear()

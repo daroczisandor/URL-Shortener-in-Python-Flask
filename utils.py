@@ -27,12 +27,14 @@ def error_to_json(error_message):
     A helper function to convert an error message to a JSON dict
 
     :param string error_message: the error message to be converted
-    :param bool return_json: whether the output should be json dict, or a python dict
-    :return: the message converted to json
+    :return: JSON message of the form {'message': error_message,
+                                       'status': 'error'}
+
     """
 
     message = {
-        'message': error_message
+        'message': error_message,
+        'status': 'error'
     }
     return json.loads(json.dumps(message))
 
@@ -43,16 +45,9 @@ def url_to_json(message):
     """
     A helper function to convert a message and a URL to JSON
 
-    :param dict message: a dictionary of the form
-                         {'message': input_message,
-                          'url': input_url}
-    :param return_json: whether the output should be json dict, or a python dict
-    :return: the message converted to json
+    :param dict message: a dictionary of the form {'message': input_message,
+                                                   'url': input_url}
+    :return: the message converted to JSON
     """
 
     return json.loads(json.dumps(message))
-
-
-# if __name__ == "__main__":
-#     url = "https://wikipedia.org"
-#     print(is_url(url))
