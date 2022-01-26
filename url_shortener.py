@@ -5,7 +5,8 @@ from utils import error_to_json, url_to_json
 
 class UrlShortener:
     """
-    A UrlShortener class for generating an encoding for long URLs, and decoding short URLs.
+    A UrlShortener class for generating encodings for long URLs, and decoding short URLs, while
+    storing the encodings in memory.
     """
 
     def __init__(self, num_chars=5, base_url="http://127.0.0.1:7777/", max_it=1e5):

@@ -3,16 +3,16 @@ from validators import ValidationFailure
 
 
 
-# checks if a given string is a valid URL
 def is_url(url_string):
     """
+    Checks if a given string is a valid URL.
 
     :param string url_string: the URL to be validated
     :return: bool valid: True if url_string is a valid URL
                          False if url_string is not a valid URL
     """
 
-    # Create validators in
+    # Create validators instance
     valid = validators.url(url_string)
     if isinstance(valid, ValidationFailure):
         return False

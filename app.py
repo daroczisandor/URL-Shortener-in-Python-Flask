@@ -7,21 +7,23 @@
 from flask import Flask, request, render_template, redirect
 from url_shortener import UrlShortener
 from utils import is_url, error_to_json
-import json
 
 
 
 # creating Flask app
 app = Flask(__name__)
 
-# creating UrlShortener instance
+# creating an UrlShortener instance
 urlShortener = UrlShortener()
 base_url = urlShortener.base_url
 
 
-# Defining what will happen on the home page
+
 @app.route('/')
 def home():
+    """
+    This is the homepage.
+    """
     return render_template('home.html')
 
 
@@ -91,7 +93,7 @@ def api_redirect():
     corresponding long_url, if it exists.
     If no corresponding long_url exists, it returns an error message.
 
-    :return: Flask.redirect() instance, redirecting to long_url
+    :return: Flask.redirect() instance, redirecting to the decoded long_url
     """
 
     # if no url argument was given, return error
@@ -112,6 +114,7 @@ def api_redirect():
     if status == 'error':
         return decoder_response
 
+    # redirect page to decoded_url
     return redirect(decoded_url, code=302)
 
 
