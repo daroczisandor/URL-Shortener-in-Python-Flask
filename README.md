@@ -44,6 +44,6 @@ Then, open a browser of your choice and go to `http://127.0.0.1:7777/`.
 
 
 
-### Algorithm for generating the short_url's
+### Algorithm for generating the short URLs
 
 The generator algorithms simply generates a sequence of random characters (lowercase letters + uppercase letters + numbers) with length specified by the num_chars variable, and then creates a string via concatenating the base_url with the encoding. This string will be stored as the encoded URL in two dictionaries (to ensure an average lookup time of O(1))
